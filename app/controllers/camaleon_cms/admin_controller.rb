@@ -2,7 +2,7 @@ module CamaleonCms
   class AdminController < CamaleonCms::CamaleonController
     rescue_from CanCan::AccessDenied do |exception|
       flash[:error] = "Error: #{exception.message}"
-      redirect_to cama_admin_dashboard_path
+      redirect_to cama_admin_cms_dashboard_path
     end
     include CamaleonCms::Admin::ApplicationHelper
     # layout 'camaleon_cms/admin'

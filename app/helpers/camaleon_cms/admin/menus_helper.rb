@@ -6,7 +6,7 @@ module CamaleonCms
       def admin_menus_add_commons
         admin_menu_add_menu('dashboard',
                             { icon: 'dashboard', title: t('camaleon_cms.admin.sidebar.dashboard'),
-                              url: cama_admin_dashboard_path })
+                              url: cama_admin_cms_dashboard_path })
         items = []
 
         current_site.post_types.eager_load(:metas).visible_menu.all.each do |pt|

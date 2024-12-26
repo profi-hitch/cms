@@ -119,7 +119,7 @@ module CamaleonCms
 
       def impersonate
         authorize! :impersonate, @user
-        session_switch_user(@user, cama_admin_dashboard_path)
+        session_switch_user(@user, cama_admin_cms_dashboard_path)
       end
 
       private

@@ -279,7 +279,7 @@ module CamaleonCms
       rescue StandardError
         nil
       end
-      h.cama_url_to_fixed('cama_admin_dashboard_url', host: host, port: port, locale: nil)
+      h.cama_url_to_fixed('cama_admin_cms_dashboard_url', host: host, port: port, locale: nil)
     end
 
     # check if current user can manage sites

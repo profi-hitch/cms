@@ -28,7 +28,7 @@ module CamaleonCms
       elsif (return_to = cookies.delete(:return_to)).present?
         redirect_to return_to
       else
-        redirect_to cama_admin_dashboard_path
+        redirect_to cama_admin_cms_dashboard_path
       end
     end
 
@@ -90,7 +90,7 @@ module CamaleonCms
 
       cookies[:auth_token] = session[:parent_auth_token]
       session.delete(:parent_auth_token)
-      redirect_to (redirect_url || cama_admin_dashboard_path), notice: 'Welcome back!'
+      redirect_to (redirect_url || cama_admin_cms_dashboard_path), notice: 'Welcome back!'
     end
 
     # logout current user

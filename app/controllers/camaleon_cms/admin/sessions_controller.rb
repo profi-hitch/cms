@@ -9,7 +9,7 @@ module CamaleonCms
 
       # you can pass return_to as a param (mysite.com/admin/login?return_to=my-url) and this will be used after user logged in
       def login
-        return redirect_to(params[:return_to].present? ? params[:return_to] : cama_admin_dashboard_path) if signin?
+        return redirect_to(params[:return_to].present? ? params[:return_to] : cama_admin_cms_dashboard_path) if signin?
 
         cookies[:return_to] = params[:return_to] if params[:return_to].present?
         @user ||= current_site.users.new
@@ -55,7 +55,7 @@ module CamaleonCms
 
       def logout
         if session[:parent_auth_token].present? && cama_sign_in?
-          session_back_to_parent(cama_admin_dashboard_path)
+          session_back_to_parent(cama_admin_cms_dashboard_path)
         else
           cama_logout_user
         end

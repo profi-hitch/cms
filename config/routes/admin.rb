@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   scope PluginRoutes.system_info['relative_url_root'] do
     scope module: 'camaleon_cms', as: 'cama' do
+      get '/admin/cms/dashboard' => 'admin#dashboard'
       namespace :admin, path: PluginRoutes.system_info['admin_path_name'] do
         get '/' => :dashboard
-        get 'dashboard'
+
         get 'ajax'
         get 'search'
         get 'login' => 'sessions#login'

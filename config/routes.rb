@@ -8,4 +8,16 @@ Rails.application.routes.draw do
     get 'captcha', as: 'captcha', to: 'camaleon_cms/camaleon#captcha'
     eval(PluginRoutes.load('main'))
   end
+
+  namespace :camaleon_cms do
+    namespace :api do
+      namespace :v1 do
+        resources :post_types, only: [:show, :index]
+        resources :posts, only: [:index, :show] do
+          resources :comments, only: [:create]
+        end
+        get 'sitemap', to: 'sitemap#show'
+      end
+    end
+  end
 end
