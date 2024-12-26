@@ -59,7 +59,7 @@ module CamaleonCms
 
       # create seo attributes with options + default attributes
       def cama_build_seo(options = {})
-        options[:image] = current_site.get_option('screenshot', current_site.the_logo) unless options[:image].present?
+        options[:image] = current_site.get_option('screenshot', 'skappd-logo.png') unless options[:image].present?
         options[:title] = current_site.the_title unless options[:title].present?
         options[:description] = current_site.the_option('seo_description') unless options[:description].present?
         options[:url] = request.original_url

@@ -61,7 +61,7 @@ module CamaleonCms
       elsif @user.save
         @user.set_metas(meta)
         message = current_site.need_validate_email? ? t('camaleon_cms.admin.users.message.created_pending_validate_email') : t('camaleon_cms.admin.users.message.created')
-        r = { user: @user, message: message, redirect_url: cama_admin_login_path }
+        r = { user: @user, message: message, redirect_url: cama_admin_blogs_login_path }
         hooks_run('user_after_register', r)
         { result: true, message: r[:message], redirect_url: r[:redirect_url] }
       else
@@ -100,7 +100,7 @@ module CamaleonCms
       c_data = { value: nil, expires: 24.hours.ago }
       c_data[:domain] = :all if PluginRoutes.system_info['users_share_sites'].present? && CamaleonCms::Site.count > 1
       cookies[:auth_token] = c_data
-      redirect_to params[:return_to].present? ? params[:return_to] : cama_admin_login_path,
+      redirect_to params[:return_to].present? ? params[:return_to] : cama_admin_blogs_login_path,
                   notice: t('camaleon_cms.admin.logout.message.closed')
     end
 
@@ -154,7 +154,7 @@ module CamaleonCms
                             else
                               (request.get? && params[:controller] != 'admin/sessions' ? request.original_url : nil)
                             end
-      redirect_to cama_admin_login_path
+      redirect_to cama_admin_blogs_login_path
     end
 
     # return the session id

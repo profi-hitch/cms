@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
         get 'ajax'
         get 'search'
-        get 'login' => 'sessions#login'
+        get 'blogs/login' => 'sessions#login'
         post 'login' => 'sessions#login_post'
         get 'logout' => 'sessions#logout'
         match 'forgot' => 'sessions#forgot', via: %i[get post patch]

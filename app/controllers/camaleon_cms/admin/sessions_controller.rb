@@ -72,13 +72,13 @@ module CamaleonCms
             return
           elsif @user.password_reset_sent_at < 2.hours.ago
             flash[:error] = t('camaleon_cms.admin.login.message.forgot_expired')
-            redirect_to cama_admin_login_path
+            redirect_to cama_admin_blogs_login_path
           else
             # saved new password
             if params[:user].present?
               if @user.update(params[:user].permit(:password, :password_confirmation))
                 flash[:notice] = t('camaleon_cms.admin.login.message.reset_password_succes')
-                redirect_to cama_admin_login_path
+                redirect_to cama_admin_blogs_login_path
                 return
               else
                 flash[:error] = t('camaleon_cms.admin.login.message.reset_password_error')
@@ -99,7 +99,7 @@ module CamaleonCms
         if @user.present?
           send_password_reset_email(@user)
           flash[:notice] = t('camaleon_cms.admin.login.message.send_mail_succes')
-          redirect_to cama_admin_login_path
+          redirect_to cama_admin_blogs_login_path
           nil
         else
           flash[:error] = t('camaleon_cms.admin.login.message.send_mail_error')
@@ -145,7 +145,7 @@ module CamaleonCms
             @user.save!
           end
         end
-        redirect_to cama_admin_login_path
+        redirect_to cama_admin_blogs_login_path
       end
 
       private
