@@ -1,5 +1,5 @@
-module CamaleonCms
-  module Api
+module Api
+  module Cms
     module V1
       class PostsController < BaseController
         # def index
@@ -59,6 +59,7 @@ module CamaleonCms
                 title: @post.title,
                 content: @post.content,
                 slug: @post.slug,
+                image: URI.join(request.base_url, @post.get_meta('thumb')).to_s,
                 created_at: @post.created_at,
                 updated_at: @post.updated_at
                 # visit_count: @post.visit_count

@@ -1,5 +1,5 @@
-module CamaleonCms
-  module Api
+module Api
+  module Cms
     module V1
       class SitemapController < BaseController
         def show

@@ -1,7 +1,7 @@
-module CamaleonCms
-  module Api
+module Api
+  module Cms
     module V1
-      class BaseController < CamaleonController
+      class BaseController < CamaleonCms::CamaleonController
         before_action :set_default_format
         skip_before_action :verify_authenticity_token
         include CamaleonCms::FrontendConcern
