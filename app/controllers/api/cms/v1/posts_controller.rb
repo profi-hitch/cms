@@ -8,7 +8,7 @@ module Api
         # end
   
         def show
-          @post = current_site.the_posts.find_by(id: params[:id])
+          @post = current_site.the_posts.find_by(slug: params[:slug])
           if params[:draft_id].present?
             draft_render
           else
@@ -37,7 +37,6 @@ module Api
 
         def render_post(post_or_slug_or_id, from_url = false, status = nil, force_visit = false)
           return render json: { error: 'Post not found' }, status: :not_found unless @post.present?
-          # return render json: { error: 'Unauthorized' }, status: :forbidden unless force_visit || @post.can_visit?
         
           @post = @post.decorate
           @object = @post
@@ -47,8 +46,9 @@ module Api
           @categories = @post.the_categories
           @post_tags = @post.post_tags
         
-          # Increment post visits
-          # @post.increment_visits!
+          # Fetch the SEO metadata
+          seo_meta = @post.get_meta('_default') || {}
+          seo_data = seo_meta.is_a?(String) ? JSON.parse(seo_meta) : seo_meta
         
           # Build the JSON response
           response_data = {
@@ -58,11 +58,18 @@ module Api
               attributes: {
                 title: @post.title,
                 content: @post.content,
+                content_filtered: @post.content_filtered,
+                summary: @post.get_meta('summary'),
                 slug: @post.slug,
-                image: URI.join(request.base_url, @post.get_meta('thumb')).to_s,
+                image: @post.get_meta('thumb'),
                 created_at: @post.created_at,
-                updated_at: @post.updated_at
-                # visit_count: @post.visit_count
+                updated_at: @post.updated_at,
+                seo_title: seo_data['seo_title'],
+                keywords: seo_data['keywords'],
+                seo_description: seo_data['seo_description'],
+                seo_author: seo_data['seo_author'],
+                seo_image: seo_data['seo_image'],
+                seo_canonical: seo_data['seo_canonical']
               },
               relationships: {
                 post_type: {
@@ -88,7 +95,7 @@ module Api
           hooks_run('on_render_post', response_data) if from_url
         
           render json: response_data, status: status || :ok
-        end        
+        end 
       end  
     end
   end
