@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'cama_contact_form', '~> 0.1.0'
   s.add_dependency 'cama_meta_tag'
   s.add_dependency 'cancancan', '>= 2.0', '< 4'
-  s.add_dependency 'dartsass-sprockets'
+  # s.add_dependency 'dartsass-sprockets'
   s.add_dependency 'draper', '>= 4.0.2'
   s.add_dependency 'font-awesome-rails'
   s.add_dependency 'ipaddress'
