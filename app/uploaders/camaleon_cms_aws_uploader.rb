@@ -67,7 +67,8 @@ class CamaleonCmsAwsUploader < CamaleonCmsUploader
       'thumb' => '',
       'file_type' => is_dir ? '' : self.class.get_file_format(key),
       'created_at' => is_dir ? '' : s3_file.last_modified,
-      'dimension' => ''
+      'dimension' => '',
+      'content_type' => s3_file.content_type || get_content_type(key)
     }.with_indifferent_access
     if res['file_type'] == 'image' && File.extname(res['name']).downcase != '.gif'
       res['thumb'] =
@@ -101,7 +102,6 @@ class CamaleonCmsAwsUploader < CamaleonCmsUploader
       uploaded_io_or_file_path.is_a?(String) ? uploaded_io_or_file_path : uploaded_io_or_file_path.path,
       @aws_settings[:aws_file_upload_settings].call({acl: 'public-read'})
     )
-    
     res = cache_item(file_parse(s3_file)) unless args[:is_thumb]
     res
   end
