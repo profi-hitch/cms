@@ -99,8 +99,9 @@ class CamaleonCmsAwsUploader < CamaleonCmsUploader
     s3_file = bucket.object(key.slice(1..-1))
     s3_file.upload_file(
       uploaded_io_or_file_path.is_a?(String) ? uploaded_io_or_file_path : uploaded_io_or_file_path.path,
-      @aws_settings[:aws_file_upload_settings].call({})
+      @aws_settings[:aws_file_upload_settings].call({acl: 'public-read'})
     )
+    
     res = cache_item(file_parse(s3_file)) unless args[:is_thumb]
     res
   end
