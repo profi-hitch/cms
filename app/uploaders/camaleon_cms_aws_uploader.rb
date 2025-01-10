@@ -67,8 +67,7 @@ class CamaleonCmsAwsUploader < CamaleonCmsUploader
       'thumb' => '',
       'file_type' => is_dir ? '' : self.class.get_file_format(key),
       'created_at' => is_dir ? '' : s3_file.last_modified,
-      'dimension' => '',
-      'content_type' => s3_file.content_type || get_content_type(key)
+      'dimension' => ''
     }.with_indifferent_access
     if res['file_type'] == 'image' && File.extname(res['name']).downcase != '.gif'
       res['thumb'] =
