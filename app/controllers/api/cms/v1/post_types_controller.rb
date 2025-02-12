@@ -18,7 +18,7 @@ module Api
         
           # Apply free-text search if the `query` parameter is present
           search_query = params[:query].to_s.strip
-          posts = @post_type.the_posts.latest.distinct
+          posts = @post_type.the_posts.distinct
           categories = @post_type.categories.no_empty
           post_tags = @post_type.post_tags
         

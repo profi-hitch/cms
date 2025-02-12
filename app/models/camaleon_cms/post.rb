@@ -3,7 +3,7 @@ module CamaleonCms
     include CamaleonCms::CategoriesTagsForPosts
 
     alias_attribute :post_type_id, :taxonomy_id
-    default_scope -> { where(post_class: 'Post').order(post_order: :asc, created_at: :desc) }
+    default_scope -> { where(post_class: 'Post').order(updated_at: :desc) }
 
     # DEPRECATED
     has_many :post_relationships, class_name: 'CamaleonCms::PostRelationship', foreign_key: :objectid,
