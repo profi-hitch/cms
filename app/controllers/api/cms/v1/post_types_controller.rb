@@ -38,7 +38,7 @@ module Api
             posts = posts.where(id: all_post_ids)
           end
         
-          posts = posts.paginate(page: params[:page], per_page: params[:per_page] || current_site.front_per_page).eager_load(:metas)
+          posts = posts.published.paginate(page: params[:page], per_page: params[:per_page] || current_site.front_per_page).eager_load(:metas)
           categories = categories.eager_load(:metas).decorate
           post_tags = post_tags.eager_load(:metas)
         
