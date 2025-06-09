@@ -22,8 +22,8 @@ module Api
           categories = @post_type.categories.no_empty
           post_tags = @post_type.post_tags
         
-          if params[:category_id].present?
-            category = categories.find_by(id: params[:category_id])
+          if params[:category_slug].present?
+            category = categories.find_by(slug: params[:category_slug])
             posts = category.posts if category.present?
           end
         
