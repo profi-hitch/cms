@@ -34,11 +34,15 @@ module Api
             post_tags = post_tags.where("name ILIKE :query", query: "%#{search_query}%")
         
             # Combine all post IDs and fetch unique posts
-            all_post_ids = (post_query.pluck(:id) + categories.flat_map(&:posts).map(&:id) + post_tags.flat_map(&:posts).map(&:id)).uniq
+            all_post_ids = (
+              post_query.reorder(nil).pluck(:id) +
+              categories.flat_map { |category| category.posts.reorder(nil).pluck(:id) } +
+              post_tags.flat_map { |post_tag| post_tag.posts.reorder(nil).pluck(:id) }
+            ).uniq
             posts = posts.where(id: all_post_ids)
           end
         
-          posts = posts.published.paginate(page: params[:page], per_page: params[:per_page] || current_site.front_per_page).eager_load(:metas)
+          posts = posts.published.reorder(updated_at: :desc).paginate(page: params[:page], per_page: params[:per_page] || current_site.front_per_page).eager_load(:metas)
           categories = categories.eager_load(:metas).decorate
           post_tags = post_tags.eager_load(:metas)
         
